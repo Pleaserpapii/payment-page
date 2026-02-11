@@ -217,45 +217,54 @@
         }
 
         /* BUTTON */
-             .pay-button {
-  width: calc(100% - 56px); /* 28px left + 28px right */
-  margin: 28px auto 36px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: none;
-  padding: 22px;
-  border-radius: 18px;
-  font-size: 19px;
-  font-weight: 700;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
-}
-      .pay-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 45px rgba(106, 90, 249, 0.55);
+      .pay-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
 }
 
-.pay-button:disabled {
-  background: #9ca3af;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
+#payBtn {
+    background: linear-gradient(135deg, #7b2ff7, #9b4dff);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 240px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
 }
-        .btn-progress {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 0%;
-            background: rgba(255,255,255,0.3);
-            transition: width 0.4s ease;
-        }
 
+#payBtn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(123, 47, 247, 0.35);
+}
+
+#payBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: rgba(255, 255, 255, 0.25);
+    transition: width 0.3s ease;
+    z-index: 0;
+}
+
+#payBtn span {
+    position: relative;
+    z-index: 1;
+}
         .ghost {
             position: absolute;
             opacity: 0;
@@ -322,11 +331,12 @@
         </div>
 
           <!-- GREEN PAY BUTTON -->
-        <button class="pay-button" id="payBtn">
-            <div class="btn-progress"></div>
-            Make Payment
-        </button>
-    </div>
+        <div class="pay-btn-wrapper">
+    <button id="payBtn">
+        <div class="btn-progress" id="btnProgress"></div>
+        <span>Make Payment</span>
+    </button>
+</div>        
         <!-- TERMS -->
         <div class="terms">
             By completing this payment you <span class="terms-highlight">agree</span> to our 
